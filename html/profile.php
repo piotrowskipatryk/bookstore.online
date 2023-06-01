@@ -13,7 +13,7 @@
 
 <html>
     <head>
-        <title>Projekt cząstkowy 1 - mechanizm rejestracji</title>
+        <title>bookstore.online | <?= _("profile") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
         <META NAME=KEYWORDS CONTENT="html,php,projekt,rejestracja">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa - mechanizm rejestracji">
@@ -22,6 +22,7 @@
         <meta name="copyright" content="Patryk Piotrowski">
 
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     </head>
     <body>
         <div class="center">dane konta:</div>

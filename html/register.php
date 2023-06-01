@@ -72,10 +72,12 @@
             return $_POST[$input];
         }
     }
+
+    include 'utils/cart_count.php';
 ?>
 <html>
     <head>
-        <title>Projekt cząstkowy 1 - mechanizm rejestracji</title>
+        <title>bookstore.online | <?= _("register") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
         <META NAME=KEYWORDS CONTENT="html,php,projekt,rejestracja">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa - mechanizm rejestracji">
@@ -84,8 +86,10 @@
         <meta name="copyright" content="Patryk Piotrowski">
 
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     </head>
     <body>
+        <?php include 'utils/header.php' ?>
         <div class="center">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <fieldset>

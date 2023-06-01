@@ -17,15 +17,11 @@
         header('Location: http://'.$_SERVER['HTTP_HOST']);  # removing query param to prevent adding to cart while page refresh
     }
 
-    if (isset($_SESSION['cart'])){
-        $cart_count = array_sum($_SESSION['cart']);
-    } else {
-        $cart_count = 0;
-    }
+    include 'utils/cart_count.php';
 ?>
 <html>
     <head>
-        <title>Projekt cząstkowy 2 - prosta symulacja elementów sklepu internetowego</title>
+        <title>bookstore.online | <?= _("homepage") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
         <META NAME=KEYWORDS CONTENT="html,php,projekt,sklep,e-commerce">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa - symulacja elementów sklepu internegowego">
@@ -34,33 +30,33 @@
         <meta name="copyright" content="Patryk Piotrowski">
 
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     </head>
     <body>
-        <div class="row">
-            <div class="child center">Produkty:</div>
-            <div class="child cart"><a href="cart.php">Ilość produktów w koszyku: <?= $cart_count ?></a></div>
-        </div>
+        <?php include 'utils/header.php' ?>
         <div class="center">
-            <ul>
-                <?php
-                    if ($result) {
-                        while($row = mysqli_fetch_assoc($result)) {
-                            echo '<li class="product">';
-                            echo $row['name'];
-                            echo "<ul>";
-                            echo '<li><img width="200px" src="' . $row['photo_path'] . '" /></li>';
-                            echo "<li>cena: " . $row['price'] . 'zł</li>';
-                            echo "<li>opis: " . $row['description'] . 'zł</li>';
-                            echo '<li>' . '<a href="?add=' . $row['id'] . '">dodaj do koszyka</a>' . '</li>';
-                            echo "</ul>";
-                            echo "</li>";
-                        }
-
-                    } else {
-                        echo "<li>Brak produktów w bazie.</li>";
-                    }
-                ?>
-            </ul>
+            <?php if ($result) : ?>
+                <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                    <div class="book-item">
+                        <div class="photo"><img src="<?= $row['photo_path'] ?>" /></div>
+                        <div>
+                            <div class="title"><?= $row['name'] ?></div>
+                            <div class="description"><?= $row['description'] ?></div>
+                        </div>
+                        <div class="price-and-button">
+                            <div class="price"><?= $row['price'] ?> zł</div>
+                                <form>
+                                    <button type="submit" class="add-button">
+                                        <?= _("add to cart") ?>
+                                    </button>
+                                    <input type="hidden" name="add" value="<?= $row['id'] ?>" /></label>
+                                </form>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php else : ?>
+                <p>Brak produktów w bazie.</p>
+            <?php endif; ?>
         </div>
     </body>
 </html>

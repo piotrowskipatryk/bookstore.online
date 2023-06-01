@@ -1,31 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #eceff1;
+}
+
+a:link {
+    text-decoration: none;
+    color: #E72913;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #E72913;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.product {
-    margin: 10px;
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
-.row {
-    margin: 1rem;
-    padding: 2rem 2rem;
-    text-align: center;
+
+.menu {
+    display: flex;
+    flex-direction: row;
 }
-.child {
-    display: inline-block;
-    padding: 1rem 1rem;
-    vertical-align: middle;
+
+.menu-item {
+    padding: 1rem;
 }
-.cart {
-    float: right;
+
+.menu-item.active a {
+    font-weight: bold;
 }
+
+.book-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px #c3c3c3;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 14rem;
+    height: 23rem;
+}
+
+.book-item .photo img {
+    height: 14rem;
+}
+
+.book-item .title {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.book-item .description {
+    color: #323232;
+}
+
+.book-item .price-and-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+
+.book-item .price-and-button .price {
+    font-size: larger;
+}
+
+.book-item .price-and-button .add-button {
+    background-color: #e72913;
+    font-weight: 600;
+    font-size: 14;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 0.3rem 0.5rem;
+}
+
+.book-item .price-and-button .add-button:hover {
+    background-color: #c82614;
+}
+
 .submit {
     float: right;
     margin-top: 10px;
 }
+
 .form {
     margin-top: 20px;
 }
+
 .errors {
     color: red;
 }

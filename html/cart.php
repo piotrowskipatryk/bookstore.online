@@ -77,11 +77,13 @@
             return $_POST[$input];
         }
     }
+
+    include 'utils/cart_count.php';
 ?>
 
 <html>
     <head>
-        <title>Projekt cząstkowy 2 - prosta symulacja elementów sklepu internetowego</title>
+        <title>bookstore.online | <?= _("cart") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
         <META NAME=KEYWORDS CONTENT="html,php,projekt,sklep,e-commerce">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa - symulacja elementów sklepu internegowego">
@@ -90,9 +92,10 @@
         <meta name="copyright" content="Patryk Piotrowski">
 
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     </head>
     <body>
-        <div class="center"><a href="/">strona główna</a></div><br />
+        <?php include 'utils/header.php' ?>
         <div class="center">
                 <?php if($success) : ?><p>Zamówienie wysłane.</p><?php endif; ?>
             </div>

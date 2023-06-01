@@ -1,0 +1,38 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product {
+    margin: 10px;
+}
+.row {
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+.child {
+    display: inline-block;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
+.cart {
+    float: right;
+}
+.submit {
+    float: right;
+    margin-top: 10px;
+}
+.form {
+    margin-top: 20px;
+}
+.errors {
+    color: red;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}

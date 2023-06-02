@@ -1,79 +1,66 @@
 <?php
-    $db = mysqli_connect("mysql-server", "root", "secret", "bookstore");
-    session_start();
-    $errors = "";
+    include 'utils/db.php';
+    include 'utils/serializer.php';
+    if(array_key_exists('email', $_SESSION)){
+        header('Location: /profile.php');
+    }
+
+    $errors = false;
     $success = false;
-    $query_db = true;
     $key_to_label = array(
-        "first_name" => "imię",
-        "last_name" => "nazwisko",
-        "login" => "login",
-        "password" => "hasło",
-        "email" => "email",
-        "street" => "ulica",
-        "city" => "miejscowość",
-        "postal_code" => "kod pocztowy",
-        "intrests" => "zainteresowania",
-        "education" => "wykształcenie",
+        "first_name" => _("first name"),
+        "last_name" => _("last name"),
+        "password" => _("password"),
+        "email" => _("email"),
+        "street" => _("street"),
+        "city" => _("city"),
+        "postal_code" => _("postal code"),
     );
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach($_POST as $key => $value)
         {
             if (empty($value)) {
-                $errors = "Pole " . $key_to_label[$key] . " jest wymagane.";
-                $query_db = false;
+                $errors = _("Field " . $key_to_label[$key] . " is required.");
                 break;
             } else {
                 $$key = prepare($value);
                 switch ($key) {
                     case 'email':
                         if (!filter_var($$key, FILTER_VALIDATE_EMAIL)) {
-                            $errors = "Błędny format adresu email.";
+                            $errors = _("Wrong email address format.");
                         }
                         break;
                     case 'postal_code':
                         if (!preg_match('/^([0-9]{2})(-[0-9]{3})?$/i', $$key)) {
-                            $errors = "Błędny format kodu pocztowego.";
+                            $errors = _("Wrong postal code format.");
                         }
                         break;
                     case 'password':
-                        $$key = password_hash($$key, PASSWORD_DEFAULT);
+                        $$key = md5($$key);
                 }
             }
         }
         // data verified and checked - saving to db
-        if ($query_db){
-            $sql = "INSERT INTO users VALUES ('$first_name', '$last_name', '$login', '$password', '$email', '$street', '$city', '$postal_code', '$intrests', '$education')";
-            $success = mysqli_query($db, $sql);
+        if (!$errors){
+            $sql = "SELECT email FROM users WHERE email = '".$email."'";
+            $email_result = mysqli_query($db, $sql);
+            while($row = mysqli_fetch_array($email_result)){
+                $errors = _("User with provided email address already exists.");
+            }
+            if (!$errors){
+                $sql = "INSERT INTO users(`first_name`, `last_name`, `password`, `email`, `street`, `city`, `postal_code`) VALUES ('$first_name', '$last_name', '$password', '$email', '$street', '$city', '$postal_code')";
+                $success = mysqli_query($db, $sql);
+            }
         }
 
         // if success give session and redirect to page with data got from db
         if ($success){
             $_SESSION['valid'] = true;
-            $_SESSION['login'] = $login;
+            $_SESSION['email'] = $email;
             header('Location: /profile.php');
         }
     }
-
-    function prepare($data) {
-        if (!is_array($data)){
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-        } else {
-            $data = serialize($data);
-        }
-        return $data;
-    }
-
-    function get_value($input) {
-        if(isset($_POST[$input])){
-            return $_POST[$input];
-        }
-    }
-
-    include 'utils/cart_count.php';
 ?>
 <html>
     <head>
@@ -101,19 +88,10 @@
                         <input type="text" name="last_name" placeholder="nazwisko" value="<?= get_value('last_name') ?>" />
                     </p>
                     <p>
-                        <input type="text" name="login" placeholder="login" value="<?= get_value('login') ?>" />
-                    </p>
-                    <p>
                         <input type="password" name="password" placeholder="hasło" value="<?= get_value('password') ?>" />
                     </p>
                     <p>
                         <input type="email" name="email" placeholder="email" value="<?= get_value('email') ?>" />
-                    </p>
-                    <p>
-                        <label for="education" accesskey="w">Wykształcenie: </label>
-                        <label><input type="radio" name="education" value="podstawowe" <?php if(get_value('education') == 'podstawowe') : ?> checked <?php endif; ?>> podstawowe</label>
-                        <label><input type="radio" name="education" value="srednie" <?php if(get_value('education') == 'srednie') : ?> checked <?php endif; ?>> średnie</label>
-                        <label><input type="radio" name="education" value="wyzsze" <?php if(get_value('education') == 'wyzsze') : ?> checked <?php endif; ?>> wyższe</label>
                     </p>
                 </fieldset>
                 <fieldset>
@@ -129,27 +107,8 @@
                         <input type="text" name="postal_code" placeholder="kod pocztowy" value="<?= get_value('postal_code') ?>" />
                     </p>
                 </fieldset>
-                <fieldset>
-                    <legend>Zainteresowania</legend>
-    
-                    <p>
-                        <input type="checkbox" name="intrests[]" value="sport" <?php if(get_value('intrests') == 'sport') : ?> checked <?php endif; ?>/> sport
-                    </p>
-                    <p>
-                        <input type="checkbox" name="intrests[]" value="turystyka" <?php if(get_value('intrests') == 'turystyka') : ?> checked <?php endif; ?>/> turystyka
-                    </p>
-                    <p>
-                        <input type="checkbox" name="intrests[]" value="kino" <?php if(get_value('intrests') == 'kino') : ?> checked <?php endif; ?>/> kino
-                    </p>
-                    <p>
-                        <input type="checkbox" name="intrests[]" value="muzyka" <?php if(get_value('intrests') == 'muzyka') : ?> checked <?php endif; ?>/> muzyka
-                    </p>
-                    <p>
-                        <input type="checkbox" name="intrests[]" value="technologia" <?php if(get_value('intrests') == 'technologia') : ?> checked <?php endif; ?>/> technologia
-                    </p>
-                </fieldset>
                 <?php if($errors) : ?><p class="errors"><?php echo $errors ?></p><?php endif; ?>
-                <p>
+                <p class="right">
                     <input type="submit" class="submit-button" value="Zarejestruj"/>
                 </p>
             </form>

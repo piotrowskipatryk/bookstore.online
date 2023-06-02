@@ -6,7 +6,7 @@
 
 <html>
     <head>
-        <title>bookstore.online | <?= _("profile") ?></title>
+        <title>bookstore.online | <?= _("admin panel") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
         <META NAME=KEYWORDS CONTENT="html,php,projekt,rejestracja">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa - mechanizm rejestracji">
@@ -20,15 +20,5 @@
     <body>
         <?php include 'utils/header.php' ?>
 
-        <div class="center">imię: <?= $user_data_array['first_name'] ?></div>
-        <div class="center">nazwisko: <?= $user_data_array['last_name'] ?></div>
-        <div class="center">email: <?= $user_data_array['email'] ?></div>
-        <div class="center">adres:</div>
-        <div class="center"><?= $user_data_array['street'] ?></div>
-        <div class="center">
-             <?= $user_data_array['postal_code']?>, <?= $user_data_array['city']?>
-        </div>
-        <br />
-        <div class="center"><a href="/logout.php">wyloguj</a></div>
     </body>
 </html>

@@ -1,14 +1,7 @@
 <?php
-    session_start();
-    $db = mysqli_connect("mysql-server", "root", "secret", "bookstore");
+    include 'utils/db.php';
     $errors = false;
-    $success = false;
-
-    $key_to_label = array(
-        "street" => "ulica",
-        "city" => "miejscowość",
-        "postal_code" => "kod pocztowy",
-    );
+    $success_message = false;
 
     if (isset($_GET['del'])){
         if (isset($_SESSION['cart'])){
@@ -18,7 +11,7 @@
                 unset($_SESSION['cart'][$_GET['del']]);
             }
         }
-        header('Location: http://'.$_SERVER['HTTP_HOST'].'/cart.php');  # removing query param to prevent deleting to cart while page refresh
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/cart.php');
     }
 
     if (isset($_SESSION['cart']) && $_SESSION['cart']) {
@@ -36,49 +29,27 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        foreach($_POST as $key => $value)
-        {
-            if (empty($value)) {
-                $errors = "Pole " . $key_to_label[$key] . " jest wymagane.";
-                break;
-            } else {
-                $$key = prepare($value);
-                switch ($key) {
-                    case 'postal_code':
-                        if (!preg_match('/^([0-9]{2})(-[0-9]{3})?$/i', $$key)) {
-                            $errors = "Błędny format kodu pocztowego.";
-                        }
-                        break;
-                }
-            }
+        if(!isset($_SESSION['email'])){
+            header('Location: /login.php');
         }
-
         if (!$errors) {
-            mail("sklep@example.com", "Zamówienie ze sklepu internetowego", http_build_query($_POST, '', ', '));
+            include 'utils/getuser.php';
+            $user_id = $user_data_array['id'];
+            $sql = "INSERT INTO orders(`user_id`, `total_value`) VALUES ('$user_id', '$total')";
+            mysqli_query($db, $sql);
+            $order_id = mysqli_insert_id($db);
+            foreach ($cart as $value){
+                $product_id = $value['id'];
+                $quantity = $value['count'];
+                $price = $value['price'];
+                $sql = "INSERT INTO iteminorder(`order_id`, `product_id`, `quantity`, `price`) VALUES ('$order_id', '$product_id', '$quantity', '$price')";
+                mysqli_query($db, $sql);
+            }
             unset($_SESSION['cart']);
             unset($cart);
-            $success = true;
+            $success_message = true;
         }
     }
-
-    function prepare($data) {
-        if (!is_array($data)){
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-        } else {
-            $data = serialize($data);
-        }
-        return $data;
-    }
-
-    function get_value($input) {
-        if(isset($_POST[$input])){
-            return $_POST[$input];
-        }
-    }
-
-    include 'utils/cart_count.php';
 ?>
 
 <html>
@@ -86,7 +57,7 @@
         <title>bookstore.online | <?= _("cart") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
         <META NAME=KEYWORDS CONTENT="html,php,projekt,sklep,e-commerce">
-        <META NAME=DESCRIPTION CONTENT="Praca projektowa - symulacja elementów sklepu internegowego">
+        <META NAME=DESCRIPTION CONTENT="Praca projektowa">
         <META NAME="author" CONTENT="Patryk Piotrowski">
         <META NAME="reply-to" CONTENT= "patryk.piotrowski2.stud@pw.edu.pl">
         <meta name="copyright" content="Patryk Piotrowski">
@@ -97,7 +68,7 @@
     <body>
         <?php include 'utils/header.php' ?>
         <div class="center">
-                <?php if($success) : ?><p>Zamówienie wysłane.</p><?php endif; ?>
+                <?php if($success_message) : ?><p><?= _("Order was successfully made.") ?></p><?php endif; ?>
             </div>
         <div class="center">
             <table>
@@ -124,7 +95,7 @@
                             echo '</tr>';
                         }
                     } else {
-                        echo 'Brak produktów w koszyku.';
+                        echo _('Cart is empty. Click on the logo to go to the home page.');
                     }
                 ?>
                 <?php
@@ -141,30 +112,13 @@
                 ?>
             </table>
         </div>
-        <div class="center form">
+        <div class="form center">
             <?php if(isset($cart)) : ?>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                    <fieldset>
-                        <legend>Adres</legend>
-                        <p>
-                            <input type="hidden" name="products" value="<?= http_build_query($_SESSION['cart'], 'product_id:', ', ') ?>" />
-                        </p>
-                        <p>
-                            <input type="text" name="street" placeholder="ulica" value="<?= get_value('street') ?>" />
-                        </p>
-                        <p>
-                            <input type="text" name="city" placeholder="miejscowość" value="<?= get_value('city') ?>" />
-                        </p>
-                        <p>
-                            <input type="text" name="postal_code" placeholder="kod pocztowy" value="<?= get_value('postal_code') ?>" />
-                        </p>
-                    </fieldset>
-                    <input type="submit" class="submit" value="Złóż zamówienie"/>
+                    <input type="submit" class="submit-button" value="<?= _('place order') ?>"/>
                 </form>
-                <?php endif; ?>
-            </div>
-            <div class="center">
-                <?php if($errors) : ?><p class="errors"><?= $errors ?></p><?php endif; ?>
-            </div>
+            <?php endif; ?>
+            <?php if($errors) : ?><p class="errors"><?php echo $errors ?></p><?php endif; ?>
+        </div>
     </body>
 </html>

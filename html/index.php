@@ -1,6 +1,5 @@
 <?php
-    $db = mysqli_connect("mysql-server", "root", "secret", "bookstore");
-    session_start();
+    include 'utils/db.php';
     $sql = "SELECT * FROM products";
     $result = mysqli_query($db, $sql);
 
@@ -16,8 +15,6 @@
         }
         header('Location: http://'.$_SERVER['HTTP_HOST']);  # removing query param to prevent adding to cart while page refresh
     }
-
-    include 'utils/cart_count.php';
 ?>
 <html>
     <head>
@@ -35,28 +32,34 @@
     <body>
         <?php include 'utils/header.php' ?>
         <div class="center">
-            <?php if ($result) : ?>
-                <?php while($row = mysqli_fetch_assoc($result)) { ?>
-                    <div class="book-item">
-                        <div class="photo"><img src="<?= $row['photo_path'] ?>" /></div>
-                        <div>
-                            <div class="title"><?= $row['name'] ?></div>
-                            <div class="description"><?= $row['description'] ?></div>
+            <div class="bookshelf">
+                <?php if ($result) : ?>
+                    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                        <div class="book-item">
+                            <div class="photo"><img src="<?= $row['photo_path'] ?>" /></div>
+                            <div>
+                                <div class="title"><?= $row['name'] ?></div>
+                                <div class="description"><?= $row['description'] ?></div>
+                            </div>
+                            <div class="price-and-button">
+                                <div class="price"><?= $row['price'] ?> zł</div>
+                                    <form>
+                                        <button type="submit" class="add-button">
+                                            <?= _("add to cart") ?>
+                                        </button>
+                                        <input type="hidden" name="add" value="<?= $row['id'] ?>" /></label>
+                                    </form>
+                            </div>
                         </div>
-                        <div class="price-and-button">
-                            <div class="price"><?= $row['price'] ?> zł</div>
-                                <form>
-                                    <button type="submit" class="add-button">
-                                        <?= _("add to cart") ?>
-                                    </button>
-                                    <input type="hidden" name="add" value="<?= $row['id'] ?>" /></label>
-                                </form>
-                        </div>
-                    </div>
-                <?php } ?>
-            <?php else : ?>
-                <p>Brak produktów w bazie.</p>
-            <?php endif; ?>
+                    <?php } ?>
+                <?php else : ?>
+                    <p>Brak produktów w bazie.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© Copyright by <span>Patryk Piotrowski</span> 2023</p>
         </div>
     </body>
 </html>

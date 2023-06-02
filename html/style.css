@@ -23,10 +23,15 @@ a:active {
     text-decoration: none;
 }
 
+input[type=text], input[type=email], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+
 .center {
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .header {
@@ -48,6 +53,14 @@ a:active {
     font-weight: bold;
 }
 
+.bookshelf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 75rem;
+}
+
 .book-item {
     display: flex;
     flex-direction: column;
@@ -58,10 +71,21 @@ a:active {
     padding: 1rem;
     width: 14rem;
     height: 23rem;
+    margin-top: 1rem;
+}
+
+.book-item:not(:last-child):not(:nth-child(4n)) {
+    margin-right: 1rem;
+}
+
+.book-item .photo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .book-item .photo img {
-    height: 14rem;
+    height: 200px;
 }
 
 .book-item .title {
@@ -75,8 +99,8 @@ a:active {
 
 .book-item .price-and-button {
     display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
+    align-items: baseline;
     margin-top: 1rem;
 }
 
@@ -92,9 +116,27 @@ a:active {
     border: none;
     border-radius: 2px;
     padding: 0.3rem 0.5rem;
+    width: 7rem;
+    height: 2rem;
 }
 
 .book-item .price-and-button .add-button:hover {
+    background-color: #c82614;
+}
+
+.submit-button {
+    background-color: #e72913;
+    font-weight: 600;
+    font-size: 14;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 0.3rem 0.5rem;
+    width: 7rem;
+    height: 2rem;
+}
+
+.submit-button:hover {
     background-color: #c82614;
 }
 
@@ -111,9 +153,43 @@ a:active {
     color: red;
 }
 
+.book-item .price-and-button .add-button {
+    background-color: #e72913;
+    font-weight: 600;
+    font-size: 14;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 0.3rem 0.5rem;
+    width: 7rem;
+    height: 2rem;
+}
+
+.book-item .price-and-button .add-button:hover {
+    background-color: #c82614;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    align-content: flex-end;
+    flex-direction: column-reverse;
+    margin-top: 6rem;
+    /* height: 35rem; */
+}
+
 td,
 th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+}
+
+span {
+    color: #c82614;
 }

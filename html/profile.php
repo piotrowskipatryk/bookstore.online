@@ -20,15 +20,13 @@
     <body>
         <?php include 'utils/header.php' ?>
 
-        <div class="center">imię: <?= $user_data_array['first_name'] ?></div>
-        <div class="center">nazwisko: <?= $user_data_array['last_name'] ?></div>
-        <div class="center">email: <?= $user_data_array['email'] ?></div>
-        <div class="center">adres:</div>
+        <div class="center"><?= $user_data_array['first_name'], ' ', $user_data_array['last_name'] ?></div>
+        <div class="center"><?= $user_data_array['email'] ?></div>
         <div class="center"><?= $user_data_array['street'] ?></div>
         <div class="center">
              <?= $user_data_array['postal_code']?>, <?= $user_data_array['city']?>
         </div>
         <br />
-        <div class="center"><a href="/logout.php">wyloguj</a></div>
+        <div class="center"><a href="/logout.php"><?= _("log out") ?></a></div>
     </body>
 </html>

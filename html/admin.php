@@ -20,5 +20,34 @@
     <body>
         <?php include 'utils/header.php' ?>
 
+        <table>
+            <tr>
+                <th colspan="6"><?= _("orders") ?></th>
+            </tr>
+            <tr>
+                <th><?= _("number") ?></th>
+                <th><?= _("products") ?></th>
+                <th><?= _("user") ?></th>
+                <th><?= _("address") ?></th>
+                <th><?= _("total") ?></th>
+                <th><?= _("actions") ?></th>
+            </tr>
+    
+            <?php
+                $sql = "SELECT orders.id as order_id, total_value, users.first_name, users.last_name, users.street, users.city, users.postal_code FROM orders INNER JOIN users ON orders.user_id = users.id INNER JOIN iteminorder ON iteminorder.order_id = orders.id INNER JOIN products ON products.id = iteminorder.product_id;";
+                $result = mysqli_query($db, $sql);
+                while($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tr>
+                    <td><?= $row['order_id'] ?></td>
+                    <td></td>
+                    <td><?= $row['first_name'] ?> <?= $row['last_name'] ?></td>
+                    <td><?= $row['street'] ?>, <?= $row['city'] ?> <?= $row['postal_code'] ?>, <?= $row['city'] ?></td>
+                    <td><?= $row['total_value'] ?></td>
+                    <td></td>
+                </tr>
+            <?php } ?>
+        </table>
+
     </body>
 </html>

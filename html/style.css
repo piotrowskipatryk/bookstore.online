@@ -34,6 +34,16 @@ input[type=text], input[type=email], input[type=password] {
     justify-content: center;
 }
 
+.admin-panel {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.ordered-books-table {
+    margin-right: 5rem;
+}
+
 .header {
     display: flex;
     justify-content: space-around;

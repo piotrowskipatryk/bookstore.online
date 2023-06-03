@@ -1,0 +1,201 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-03 14:50+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Patryk Piotrowski <patryk.piotrowski2.stud@pw.edu.pl>\n"
+"Language-Team: Polish\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: html/add-new-book.php:8 html/add-new-book.php:62 html/admin.php:76
+#: html/edit-book.php:8 html/edit-book.php:71
+msgid "name"
+msgstr "nazwa"
+
+#: html/add-new-book.php:9 html/add-new-book.php:68 html/admin.php:78
+#: html/edit-book.php:9 html/edit-book.php:77
+msgid "price"
+msgstr "cena"
+
+#: html/add-new-book.php:10 html/add-new-book.php:65 html/admin.php:77
+#: html/edit-book.php:10 html/edit-book.php:74
+msgid "description"
+msgstr "opis"
+
+#: html/add-new-book.php:11 html/admin.php:75 html/edit-book.php:11
+msgid "photo"
+msgstr "fotografia"
+
+#: html/add-new-book.php:18 html/edit-book.php:24 html/register.php:24
+msgid "Field "
+msgstr "Pole "
+
+#: html/add-new-book.php:26 html/edit-book.php:32
+msgid "Wrong price format."
+msgstr "Niepoprawny format ceny."
+
+#: html/add-new-book.php:44 html/admin.php:103 html/edit-book.php:50
+msgid "add new book"
+msgstr "dodaj nową książkę"
+
+#: html/add-new-book.php:71 html/edit-book.php:80
+msgid "submit"
+msgstr "potwierdź"
+
+#: html/admin.php:25
+msgid "admin panel"
+msgstr "panel administracyjny"
+
+#: html/admin.php:42
+msgid "ordered books"
+msgstr "zamówione książki"
+
+#: html/admin.php:45
+msgid "order no."
+msgstr "nr zamówienia"
+
+#: html/admin.php:46
+msgid "products"
+msgstr "produkty"
+
+#: html/admin.php:47
+msgid "user"
+msgstr "użytkownik"
+
+#: html/admin.php:48
+msgid "address"
+msgstr "adres"
+
+#: html/admin.php:49
+msgid "total"
+msgstr "suma"
+
+#: html/admin.php:50 html/admin.php:79
+msgid "actions"
+msgstr "akcje"
+
+#: html/admin.php:64
+msgid "send the book"
+msgstr "oznacz jako wysłana"
+
+#: html/admin.php:71
+msgid "books management"
+msgstr "zarządzanie książkami"
+
+#: html/admin.php:74
+msgid "book no."
+msgstr "numer książki"
+
+#: html/admin.php:94
+msgid "edit"
+msgstr "edytuj"
+
+#: html/admin.php:95
+msgid "delete"
+msgstr "usuń"
+
+#: html/cart.php:57
+msgid "cart"
+msgstr "koszyk"
+
+#: html/cart.php:71
+msgid "Order was successfully made."
+msgstr "Zamówienie zostało złożone."
+
+#: html/cart.php:98
+msgid "Cart is empty. Click on the logo to go to the home page."
+msgstr "Koszyk jest pusty. Kliknij na logo aby przejść do strony głównej."
+
+#: html/cart.php:118
+msgid "place order"
+msgstr "złóż zamówienie"
+
+#: html/index.php:21
+msgid "homepage"
+msgstr "strona główna"
+
+#: html/index.php:48
+msgid "add to cart"
+msgstr "dodaj do koszyka"
+
+#: html/login.php:20
+msgid "Password is not correct."
+msgstr "Hasło jest niepoprawne."
+
+#: html/login.php:25
+msgid "login"
+msgstr "login"
+
+#: html/login.php:41
+msgid "Log in"
+msgstr "Zaloguj się"
+
+#: html/login.php:49
+msgid "log in"
+msgstr "zaloguj się"
+
+#: html/login.php:54
+msgid "You don't have an account? Click to register."
+msgstr "Nie masz konta? Zarejestruj się."
+
+#: html/profile.php:9
+msgid "profile"
+msgstr "profil"
+
+#: html/profile.php:30
+msgid "go to home page"
+msgstr "idź do strony głównej"
+
+#: html/register.php:11
+msgid "first name"
+msgstr "imię"
+
+#: html/register.php:12
+msgid "last name"
+msgstr "nazwisko"
+
+#: html/register.php:13
+msgid "password"
+msgstr "hasło"
+
+#: html/register.php:14
+msgid "email"
+msgstr "email"
+
+#: html/register.php:15
+msgid "street"
+msgstr "ulica"
+
+#: html/register.php:16
+msgid "city"
+msgstr "miejscowość"
+
+#: html/register.php:17
+msgid "postal code"
+msgstr "kod pocztowy"
+
+#: html/register.php:31
+msgid "Wrong email address format."
+msgstr "Niepoprawny format adresu email."
+
+#: html/register.php:36
+msgid "Wrong postal code format."
+msgstr "Niepoprawny format kodu pocztowego."
+
+#: html/register.php:49
+msgid "User with provided email address already exists."
+msgstr "Istnieje już użytkownik z takim adresem email."
+
+#: html/register.php:67
+msgid "register"
+msgstr "zarejestruj"

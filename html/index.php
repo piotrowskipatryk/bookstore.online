@@ -1,5 +1,7 @@
 <?php
     include 'utils/db.php';
+    include 'utils/translations.php';
+
     $sql = "SELECT * FROM products";
     $result = mysqli_query($db, $sql);
 
@@ -20,7 +22,7 @@
     <head>
         <title>bookstore.online | <?= _("homepage") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
-        <META NAME=KEYWORDS CONTENT="html,php,projekt,sklep,e-commerce">
+        <META NAME=KEYWORDS CONTENT="html,php,projekt">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa - symulacja elementów sklepu internegowego">
         <META NAME="author" CONTENT="Patryk Piotrowski">
         <META NAME="reply-to" CONTENT= "patryk.piotrowski2.stud@pw.edu.pl">
@@ -36,7 +38,7 @@
                 <?php if ($result) : ?>
                     <?php while($row = mysqli_fetch_assoc($result)) { ?>
                         <div class="book-item">
-                            <div class="photo"><img src="<?= $row['photo_path'] ?>" /></div>
+                            <div class="photo"><?php if ($row['photo_path']) { ?><img src="<?= $row['photo_path'] ?>" /><?php } ?></div>
                             <div>
                                 <div class="title"><?= $row['name'] ?></div>
                                 <div class="description"><?= $row['description'] ?></div>

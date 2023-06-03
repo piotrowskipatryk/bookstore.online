@@ -1,5 +1,6 @@
 <?php
     include 'utils/db.php';
+    include 'utils/translations.php';
     $errors = false;
     $success_message = false;
 
@@ -56,7 +57,7 @@
     <head>
         <title>bookstore.online | <?= _("cart") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
-        <META NAME=KEYWORDS CONTENT="html,php,projekt,sklep,e-commerce">
+        <META NAME=KEYWORDS CONTENT="html,php,projekt">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa">
         <META NAME="author" CONTENT="Patryk Piotrowski">
         <META NAME="reply-to" CONTENT= "patryk.piotrowski2.stud@pw.edu.pl">

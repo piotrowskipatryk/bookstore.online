@@ -1,6 +1,7 @@
 <?php
     include 'utils/db.php';
     include 'utils/serializer.php';
+    include 'utils/translations.php';
     if(array_key_exists('email', $_SESSION)){
         header('Location: /profile.php');
     }
@@ -24,7 +25,7 @@
     <head>
         <title>bookstore.online | <?= _("login") ?></title>
         <META HTTP-EQUIV="Content Type" CONTENT="text/html;charset=iso8859-2">
-        <META NAME=KEYWORDS CONTENT="html,php,projekt,logowanie">
+        <META NAME=KEYWORDS CONTENT="html,php,projekt">
         <META NAME=DESCRIPTION CONTENT="Praca projektowa">
         <META NAME="author" CONTENT="Patryk Piotrowski">
         <META NAME="reply-to" CONTENT= "patryk.piotrowski2.stud@pw.edu.pl">

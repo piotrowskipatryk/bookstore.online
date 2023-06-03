@@ -7,7 +7,7 @@ Simple online bookstore written in PHP. Also the university project.
 
 ### To run this project:
 simply clone this repository and run:
-```docker-compose up'```
+```docker-compose up```
 then in your browser go to ```http://localhost:8080/``` or ```http://localhost:5000/```
 
 

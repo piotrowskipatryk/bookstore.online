@@ -2,6 +2,12 @@
     include 'utils/db.php';
     include 'utils/auth.php';
     include 'utils/getuser.php';
+
+    if (isset($_GET['send'])){
+        $sql = "UPDATE iteminorder SET is_sent=true WHERE id='".htmlspecialchars($_GET['send'])."'";
+        mysqli_query($db, $sql);
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/admin.php');
+    }
 ?>
 
 <html>
@@ -22,10 +28,10 @@
 
         <table>
             <tr>
-                <th colspan="6"><?= _("orders") ?></th>
+                <th colspan="6"><?= _("ordered books") ?></th>
             </tr>
             <tr>
-                <th><?= _("number") ?></th>
+                <th><?= _("order no.") ?></th>
                 <th><?= _("products") ?></th>
                 <th><?= _("user") ?></th>
                 <th><?= _("address") ?></th>
@@ -34,17 +40,17 @@
             </tr>
     
             <?php
-                $sql = "SELECT orders.id as order_id, total_value, users.first_name, users.last_name, users.street, users.city, users.postal_code FROM orders INNER JOIN users ON orders.user_id = users.id INNER JOIN iteminorder ON iteminorder.order_id = orders.id INNER JOIN products ON products.id = iteminorder.product_id;";
+                $sql = "SELECT * FROM `order_table`";
                 $result = mysqli_query($db, $sql);
                 while($row = mysqli_fetch_assoc($result)) {
             ?>
                 <tr>
                     <td><?= $row['order_id'] ?></td>
-                    <td></td>
+                    <td><?= $row['itemtitle'] ?></td>
                     <td><?= $row['first_name'] ?> <?= $row['last_name'] ?></td>
                     <td><?= $row['street'] ?>, <?= $row['city'] ?> <?= $row['postal_code'] ?>, <?= $row['city'] ?></td>
-                    <td><?= $row['total_value'] ?></td>
-                    <td></td>
+                    <td><?= $row['price'] ?></td>
+                    <td><a href="?send=<?= $row['iteminorderid'] ?>"><?= _("send the book") ?></td></td>
                 </tr>
             <?php } ?>
         </table>
